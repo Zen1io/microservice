@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db/spring_quickly?useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: LokomotiV123
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.4.3
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: spring_quickly
+      MYSQL_ROOT_PASSWORD: LokomotiV123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
