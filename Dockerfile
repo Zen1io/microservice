@@ -1,28 +1,27 @@
-# Stage 1: Build the application
-FROM maven:3.9-eclipse-temurin-17 AS builder
+# Stage 1: Base image with Maven and dependencies
+FROM maven:3.9-eclipse-temurin-17 AS base
 
-# Устанавливаем рабочую директорию в контейнере
 WORKDIR /app
 
-# Копируем pom.xml и скачиваем зависимости
+
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
-# Копируем исходный код проекта и собираем jar-файл
+# Stage 2: Build application
+FROM base AS builder
+
+
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run the application
-FROM eclipse-temurin:17-jdk
+# Stage 3: Runtime environment
+FROM eclipse-temurin:17-jdk AS runtime
 
-# Устанавливаем рабочую директорию для контейнера
 WORKDIR /app
 
-# Копируем jar-файл из предыдущего этапа
-COPY --from=builder /app/target/MyEighthProject-0.0.1-SNAPSHOT.jar app.jar
 
-# Указываем порт, который будет использовать приложение
+COPY --from=builder /app/target/Microservice.jar app.jar
+
 EXPOSE 8080
 
-# Запускаем приложение
 ENTRYPOINT ["java", "-jar", "app.jar"]

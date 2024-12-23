@@ -1,13 +1,13 @@
-package com.example.MyEighthProject;
+package com.example.Microservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyEighthProjectApplication {
+public class Microservice {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MyEighthProjectApplication.class, args);
+		SpringApplication.run(Microservice.class, args);
 	}
 
 }

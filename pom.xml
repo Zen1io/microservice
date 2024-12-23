@@ -53,12 +53,18 @@
 	</dependencies>
 
 	<build>
+		<!-- Указываем имя итогового JAR-файла -->
+		<finalName>Microservice</finalName>
+
+		<!-- Плагины для сборки проекта -->
 		<plugins>
+			<!-- Плагин для сборки Spring Boot -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>
